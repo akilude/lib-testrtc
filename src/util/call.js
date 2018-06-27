@@ -316,3 +316,5 @@ Call.fetchTurnConfig_ = function(onSuccess, onError) {
   xhr.open('POST', TURN_URL + API_KEY, true);
   xhr.send();
 };
+
+export default Call;

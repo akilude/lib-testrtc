@@ -1,10 +1,3 @@
-/*
- *  Copyright (c) 2014 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
- */
 'use strict';
 
 /*
@@ -20,32 +13,6 @@
  * like average encode time and FPS. A test case will be created per mandatory
  * resolution found in the "resolutions" array.
  */
-
-addTest(testSuiteName.CAMERA, testCaseName.CHECKRESOLUTION240, function(test) {
-  var camResolutionsTest = new CamResolutionsTest(test , [[320, 240]]);
-  camResolutionsTest.run();
-});
-
-addTest(testSuiteName.CAMERA, testCaseName.CHECKRESOLUTION480, function(test) {
-  var camResolutionsTest = new CamResolutionsTest(test, [[640, 480]]);
-  camResolutionsTest.run();
-});
-
-addTest(testSuiteName.CAMERA, testCaseName.CHECKRESOLUTION720, function(test) {
-  var camResolutionsTest = new CamResolutionsTest(test, [[1280, 720]]);
-  camResolutionsTest.run();
-});
-
-addTest(testSuiteName.CAMERA,
-    testCaseName.CHECKSUPPORTEDRESOLUTIONS, function(test) {
-      var resolutionArray = [
-        [160, 120], [320, 180], [320, 240], [640, 360], [640, 480], [768, 576],
-        [1024, 576], [1280, 720], [1280, 768], [1280, 800], [1920, 1080],
-        [1920, 1200], [3840, 2160], [4096, 2160]
-      ];
-      var camResolutionsTest = new CamResolutionsTest(test, resolutionArray);
-      camResolutionsTest.run();
-    });
 
 function CamResolutionsTest(test, resolutions) {
   this.test = test;
@@ -291,3 +258,4 @@ CamResolutionsTest.prototype = {
   }
 };
 
+export default CamResolutionsTest;

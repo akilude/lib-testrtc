@@ -1,33 +1,4 @@
-/*
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
- */
 'use strict';
-
-// Test whether it can connect via UDP to a TURN server
-// Get a TURN config, and try to get a relay candidate using UDP.
-addTest(testSuiteName.NETWORK, testCaseName.UDPENABLED, function(test) {
-  var networkTest = new NetworkTest(test, 'udp', null, Call.isRelay);
-  networkTest.run();
-});
-
-// Test whether it can connect via TCP to a TURN server
-// Get a TURN config, and try to get a relay candidate using TCP.
-addTest(testSuiteName.NETWORK, testCaseName.TCPENABLED, function(test) {
-  var networkTest = new NetworkTest(test, 'tcp', null, Call.isRelay);
-  networkTest.run();
-});
-
-// Test whether it is IPv6 enabled (TODO: test IPv6 to a destination).
-// Turn on IPv6, and try to get an IPv6 host candidate.
-addTest(testSuiteName.NETWORK, testCaseName.IPV6ENABLED, function(test) {
-  var params = {optional: [{googIPv6: true}]};
-  var networkTest = new NetworkTest(test, null, params, Call.isIpv6);
-  networkTest.run();
-});
 
 var NetworkTest = function(test, protocol, params, iceCandidateFilter) {
   this.test = test;
@@ -149,3 +120,5 @@ NetworkTest.prototype = {
     function noop() {}
   }
 };
+
+export default NetworkTest;
