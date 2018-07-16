@@ -1,4 +1,9 @@
 'use strict';
+import Call from '../util/call.js';
+import Report from '../util/report.js';
+import { arrayAverage, arrayMin, arrayMax } from '../util/util.js';
+
+const report = new Report();
 
 function WiFiPeriodicScanTest(test, candidateFilter) {
   this.test = test;
@@ -16,13 +21,12 @@ function WiFiPeriodicScanTest(test, candidateFilter) {
 WiFiPeriodicScanTest.prototype = {
   run: function() {
     Call.asyncCreateTurnConfig(this.start.bind(this),
-        this.test.reportFatal.bind(this.test));
+        this.test.reportFatal.bind(this.test), this.test);
   },
 
   start: function(config) {
     this.running = true;
     this.call = new Call(config, this.test);
-    this.chart = this.test.createLineChart();
     this.call.setIceCandidateFilter(this.candidateFilter);
 
     this.senderChannel = this.call.pc1.createDataChannel({ordered: false,
@@ -32,7 +36,7 @@ WiFiPeriodicScanTest.prototype = {
         this.onReceiverChannel.bind(this));
     this.call.establishConnection();
 
-    setTimeoutWithProgressBar(this.finishTest.bind(this),
+    this.test.setTimeoutWithProgressBar(this.finishTest.bind(this),
         this.testDurationMs);
   },
 
@@ -57,7 +61,6 @@ WiFiPeriodicScanTest.prototype = {
     var delay = Date.now() - sendTime;
     this.recvTimeStamps.push(sendTime);
     this.delays.push(delay);
-    this.chart.addDatapoint(sendTime + delay, delay);
   },
 
   finishTest: function() {
@@ -66,7 +69,6 @@ WiFiPeriodicScanTest.prototype = {
     this.running = false;
     this.call.close();
     this.call = null;
-    this.chart.parentElement.removeChild(this.chart);
 
     var avg = arrayAverage(this.delays);
     var max = arrayMax(this.delays);

@@ -1,4 +1,7 @@
 'use strict';
+import adapter from 'webrtc-adapter';
+import StatisticsAggregate from '../util/stats.js';
+import Call from '../util/call.js';
 
 function VideoBandwidthTest(test) {
   this.test = test;
@@ -36,7 +39,7 @@ function VideoBandwidthTest(test) {
 VideoBandwidthTest.prototype = {
   run: function() {
     Call.asyncCreateTurnConfig(this.start.bind(this),
-        this.test.reportFatal.bind(this.test));
+        this.test.reportFatal.bind(this.test), this.test);
   },
 
   start: function(config) {
@@ -47,7 +50,7 @@ VideoBandwidthTest.prototype = {
     // tracked on: https://code.google.com/p/webrtc/issues/detail?id=3050
     this.call.disableVideoFec();
     this.call.constrainVideoBitrate(this.maxVideoBitrateKbps);
-    doGetUserMedia(this.constraints, this.gotStream.bind(this));
+    this.test.doGetUserMedia(this.constraints, this.gotStream.bind(this));
   },
 
   gotStream: function(stream) {

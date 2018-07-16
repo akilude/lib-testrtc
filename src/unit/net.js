@@ -1,4 +1,5 @@
 'use strict';
+import Call from '../util/Call.js';
 
 var NetworkTest = function(test, protocol, params, iceCandidateFilter) {
   this.test = test;
@@ -14,7 +15,7 @@ NetworkTest.prototype = {
       this.gatherCandidates(null, this.params, this.iceCandidateFilter);
     } else {
       Call.asyncCreateTurnConfig(this.start.bind(this),
-          this.test.reportFatal.bind(this.test));
+          this.test.reportFatal.bind(this.test), this.test);
     }
   },
 

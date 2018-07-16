@@ -32,15 +32,21 @@ function MicTest(test) {
   for (var i = 0; i < this.inputChannelCount; ++i) {
     this.collectedAudio[i] = [];
   }
+  try {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.audioContext = new AudioContext();
+  } catch (e) {
+    console.error('Failed to instantiate an audio context, error: ' + e);
+  }
 }
 
 MicTest.prototype = {
   run: function() {
-    if (typeof audioContext === 'undefined') {
+    if (typeof this.audioContext === 'undefined') {
       this.test.reportError('WebAudio is not supported, test cannot run.');
       this.test.done();
     } else {
-      doGetUserMedia(this.constraints, this.gotStream.bind(this));
+      this.test.doGetUserMedia(this.constraints, this.gotStream.bind(this));
     }
   },
 
@@ -65,13 +71,13 @@ MicTest.prototype = {
   },
 
   createAudioBuffer: function() {
-    this.audioSource = audioContext.createMediaStreamSource(this.stream);
-    this.scriptNode = audioContext.createScriptProcessor(this.bufferSize,
+    this.audioSource = this.audioContext.createMediaStreamSource(this.stream);
+    this.scriptNode = this.audioContext.createScriptProcessor(this.bufferSize,
         this.inputChannelCount, this.outputChannelCount);
     this.audioSource.connect(this.scriptNode);
-    this.scriptNode.connect(audioContext.destination);
+    this.scriptNode.connect(this.audioContext.destination);
     this.scriptNode.onaudioprocess = this.collectAudio.bind(this);
-    this.stopCollectingAudio = setTimeoutWithProgressBar(
+    this.stopCollectingAudio = this.test.setTimeoutWithProgressBar(
         this.onStopCollectingAudio.bind(this), 5000);
   },
 
@@ -112,7 +118,7 @@ MicTest.prototype = {
   onStopCollectingAudio: function() {
     this.stream.getAudioTracks()[0].stop();
     this.audioSource.disconnect(this.scriptNode);
-    this.scriptNode.disconnect(audioContext.destination);
+    this.scriptNode.disconnect(this.audioContext.destination);
     this.analyzeAudio(this.collectedAudio);
     this.test.done();
   },

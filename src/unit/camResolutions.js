@@ -1,5 +1,10 @@
 'use strict';
+import VideoFrameChecker from '../util/VideoFrameChecker.js';
+import Call from '../util/Call.js';
+import Report from '../util/report.js';
+import { arrayAverage, arrayMin, arrayMax } from '../util/util.js';
 
+const report = new Report();
 /*
  * In generic cameras using Chrome rescaler, all resolutions should be supported
  * up to a given one and none beyond there. Special cameras, such as digitizers,
@@ -55,6 +60,8 @@ CamResolutionsTest.prototype = {
             this.test.reportInfo(resolution[0] + 'x' + resolution[1] +
             ' not supported');
           } else {
+            console.error(error);
+            console.dir(constraints);
             this.test.reportError('getUserMedia failed with error: ' +
                 error.name);
           }
@@ -126,7 +133,7 @@ CamResolutionsTest.prototype = {
             stream, frameChecker),
         100);
 
-    setTimeoutWithProgressBar(this.endCall_.bind(this, call, stream), 8000);
+    this.test.setTimeoutWithProgressBar(this.endCall_.bind(this, call, stream), 8000);
   },
 
   onCallEnded_: function(resolution, videoElement, stream, frameChecker,

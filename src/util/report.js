@@ -138,4 +138,4 @@ Report.getSystemInfo = function() {
     'platform': navigator.platform};
 };
 
-var report = new Report();
+export default Report;

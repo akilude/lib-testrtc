@@ -1,4 +1,5 @@
 'use strict';
+import Call from '../util/Call.js';
 
 function RunConnectivityTest(test, iceCandidateFilter) {
   this.test = test;
@@ -11,7 +12,8 @@ function RunConnectivityTest(test, iceCandidateFilter) {
 RunConnectivityTest.prototype = {
   run: function() {
     Call.asyncCreateTurnConfig(this.start.bind(this),
-        this.test.reportFatal.bind(this.test));
+        this.test.reportFatal.bind(this.test),
+        this.test);
   },
 
   start: function(config) {

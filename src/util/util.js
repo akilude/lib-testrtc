@@ -10,7 +10,7 @@
 
 // array<function> returns the average (down to nearest int), max and min of
 // an int array.
-function arrayAverage(array) {
+export function arrayAverage(array) {
   var cnt = array.length;
   var tot = 0;
   for (var i = 0; i < cnt; i++) {
@@ -19,14 +19,14 @@ function arrayAverage(array) {
   return Math.floor(tot / cnt);
 }
 
-function arrayMax(array) {
+export function arrayMax(array) {
   if (array.length === 0) {
     return NaN;
   }
   return Math.max.apply(Math, array);
 }
 
-function arrayMin(array) {
+export function arrayMin(array) {
   if (array.length === 0) {
     return NaN;
   }
@@ -34,7 +34,7 @@ function arrayMin(array) {
 }
 
 // Enumerates the new standard compliant stats using local and remote track ids.
-function enumerateStats(stats, localTrackIds, remoteTrackIds) {
+export function enumerateStats(stats, localTrackIds, remoteTrackIds) {
   // Create an object structure with all the needed stats and types that we care
   // about. This allows to map the getStats stats to other stats names.
   var statsObject = {

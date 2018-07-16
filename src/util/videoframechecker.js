@@ -6,6 +6,7 @@
  *  tree.
  */
 'use strict';
+import Ssim from './ssim.js';
 
 function VideoFrameChecker(videoElement) {
   this.frameStats = {

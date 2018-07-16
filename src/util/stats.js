@@ -45,3 +45,5 @@ StatisticsAggregate.prototype = {
     return Math.round(this.rampUpTime_ - this.startTime_);
   },
 };
+
+export default StatisticsAggregate;

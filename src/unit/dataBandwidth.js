@@ -1,4 +1,5 @@
 'use strict';
+import Call from '../util/Call.js';
 
 function DataChannelThroughputTest(test) {
   this.test = test;
@@ -26,7 +27,7 @@ function DataChannelThroughputTest(test) {
 DataChannelThroughputTest.prototype = {
   run: function() {
     Call.asyncCreateTurnConfig(this.start.bind(this),
-        this.test.reportFatal.bind(this.test));
+        this.test.reportFatal.bind(this.test), this.test);
   },
 
   start: function(config) {
