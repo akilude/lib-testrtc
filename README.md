@@ -1,11 +1,50 @@
-[![Build Status](https://travis-ci.org/webrtc/testrtc.svg)](https://travis-ci.org/webrtc/testrtc)
+# lib-testrtc #
 
-# TestRTC #
-[WebRTC troubleshooter](https://test.webrtc.org/) provides a set of tests that can be easily run by a user to help diagnose
-WebRTC related issues. The user can then download a report containing all the gathered information or upload the log and
-create a temporary link with the report result.
+Turns [TestRTC](https://github.com/webrtc/testrtc) into a library to make tests embeddable in any page.
 
-## Automatic tests ##
+## TestRTC ##
+[WebRTC troubleshooter](https://test.webrtc.org/) provides a set of tests that can be easily run by a user to help diagnose WebRTC related issues. The user can then download a report containing all the gathered information or upload the log and create a temporary link with the report result.
+
+## Usage ##
+
+Import [the script](dist/testrtc-min.js) into your page and use the global object `TestRTC`.
+```html
+<script type="text/javascript" src="testrtc-min.js"></script>
+<script type="text/javascript">
+    const testRTC = new TestRTC({
+      turnUsername: 'USERNAME',
+      turnCredential: 'PASSWORD',
+      turnURI: 'YOUR_TURN_URL',
+      strunURI: 'YOUR_STUN_URI',
+    });
+
+    testRTC.start(
+      onTestProgress = (suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)},
+      onTestResult = (suite, test, status) => { console.log(`[${suite}-${test}] RESULT: ${status}`)},
+      onComplete = () => { console.log("Tests finished")}
+    );
+</script>
+```
+
+Or, import it with the module syntax
+```javascript
+import TestRTC from './testrtc-min.js';
+
+const testRTC = new TestRTC({
+  turnUsername: 'USERNAME',
+  turnCredential: 'PASSWORD',
+  turnURI: 'YOUR_TURN_URL',
+  strunURI: 'YOUR_STUN_URI',
+});
+
+testRTC.start(
+  onTestProgress = (suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)},
+  onTestResult = (suite, test, status) => { console.log(`[${suite}-${test}] RESULT: ${status}`)},
+  onComplete = () => { console.log("Tests finished")}
+);
+```
+
+## Tests descriptions ##
 * Microphone
   * Audio capture
     * Checks the microphone is able to produce 2 seconds of non-silent audio
@@ -39,40 +78,14 @@ create a temporary link with the report result.
     * Establishes a loopback call and tests video performance on the link
     * Measures rtt on media channels.
     * Measures bandwidth estimation performance (rampup time, max, average)
+  * Network latency
+    * Establishs a loopback call and sends very small packets (via data channels) during 5 minutes plotting them to the user. It can be used to identify issues on the network.
 
-## Manual tests ##
-Due to their time duration they are not part of the normal test suite and need to be run explicitly.
-* [Network latency](https://test.webrtc.org/?test_filter=Network%20latency)
-  * Establishs a loopback call and sends very small packets (via data channels) during 5 minutes plotting them to the user. It can be used to identify issues on the network.
-
-## Contributing ##
-Pull requests and issues welcome! See [CONTRIBUTING](https://github.com/GoogleChrome/webrtc/blob/master/CONTRIBUTING.md) for instructions. All contributors must sign a contributor license agreement before code can be accepted. Please complete the agreement for an [individual](https://developers.google.com/open-source/cla/individual) or a [corporation](https://developers.google.com/open-source/cla/corporate) as appropriate. The [Developer's Guide](https://bit.ly/webrtcdevguide) for this repo has more information about code style, structure and validation.
-
-## Development ##
-Make sure to install NodeJS and NPM before continuing. Note that we have been mainly been using Posix when developing TestRTC hence developer tools might not work correctly on Windows.
-
-#### Install developer tools and frameworks ####
+## Build lib-testrtc ##
 ```bash
-npm install
+yarn && grunt build
 ```
 
-#### Install dependencies ####
-```bash
-bower update
-```
+Feel free to contribute by opening a pull request.
 
-#### Run linters (currently very limited set is run) ####
-```bash
-grunt
-```
 
-#### Build testrtc ####
-Cleans out/ folder if it exists else it's created, then it copies and vulcanizes the resources needed to deploy this on Google App Engine.
-```
-grunt build
-```
-
-#### Run vulcanized version of TestRTC using [Google App Engine SDK for Python](https://cloud.google.com/appengine/downloads) (requires the Build testrtc step to be performed first). ####
-```bash
-python dev_appserver.py out/app.yml
-```
