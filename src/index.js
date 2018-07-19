@@ -1,10 +1,14 @@
 import * as Config from './config';
 
-function runAllSequentially(tasks, callbacks) {
+function runAllSequentially(tasks, callbacks, shouldStop) {
   var current = -1;
   var runNextAsync = setTimeout.bind(null, runNext);
   runNextAsync();
   function runNext() {
+    if (shouldStop()) {
+      callbacks.onStopped();
+      return;
+    }
     current++;
     if (current === tasks.length) {
       callbacks.onComplete();
@@ -24,6 +28,7 @@ class TestRTC {
       onTestProgress: () => {},
       onTestResult: () => {},
       onTestReport: () => {},
+      onStopped: () => {},
       onComplete: () => {},
     };
 
@@ -75,19 +80,23 @@ class TestRTC {
     this.callbacks.onTestReport = callback;
   }
 
+  onStopped(callback = () => {}) {
+    this.callbacks.onStopped = callback;
+  }
+
   onComplete(callback = () => {}) {
     this.callbacks.onComplete = callback;
   }
 
   start() {
     const allTests = this.getTests();
-    runAllSequentially(allTests, this.callbacks);
+    this.shouldStop = false;
+    runAllSequentially(allTests, this.callbacks, () => { return this.shouldStop });
   }
 
   stop() {
-
+    this.shouldStop = true;
   }
-
 }
 
 TestRTC.SUITES = Config.SUITES;
