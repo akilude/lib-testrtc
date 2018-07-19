@@ -13,12 +13,22 @@
       turnCredential: 'PASSWORD',
       turnURI: 'YOUR_TURN_URL',
       strunURI: 'stun:stun.1.google.com:19302',
+    }, filter = [TestRTC.TESTS.NETWORKLATENCY, TestRTC.TESTS.NETWORKLATENCYRELAY, TestRTC.SUITES.NETWORK]);
+
+    testRTC.onTestReport((suite, test, level, message) => {
+      if (level === 'info') console.info(`[${suite}-${test}: INFO] ${message}`);
+      else if (level === 'warning') console.warn(`[${suite}-${test}: WARN] ${message}`);
+      else if (level === 'error') console.error(`[${suite}-${test}: ERROR] ${message}`);
+      else if (level === 'success') console.info(`[${suite}-${test}: SUCCESS] ${message}`);
+      else console.log(`[${suite}-${test}] ${message}`)
     });
-    testRTC.start(
-      onTestProgress = (suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)},
-      onTestResult = (suite, test, status) => { console.log(`==[${suite}-${test}]== RESULT: ${status}`)},
-      onComplete = () => { console.log("Tests finished")}
-    );
+
+    testRTC.onTestProgress((suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)});
+    testRTC.onTestResult((suite, test, status) => { console.log(`[${suite}-${test}: RESULT] ${status}`)});
+    testRTC.onStopped(() => { console.log("Tests stopped") });
+    testRTC.onComplete(() => { console.log("Tests finished") });
+
+    testRTC.start();
   </script>
 </head>
 <body>
