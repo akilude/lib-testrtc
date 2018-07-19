@@ -16,24 +16,37 @@ function runAllSequentially(tasks, progressCallback, resultCallback, doneCallbac
 
 class TestRTC {
 
-  constructor(config = {}) {
+  constructor(config = {}, filter = []) {
     this.SUITES = Config.SUITES;
     this.TESTS = Config.TESTS;
     this.config = config;
 
     this.suites = [];
 
-    const micSuite = Config.buildMicroSuite(this.config);
-    const cameraSuite = Config.buildCameraSuite(this.config);
-    const networkSuite = Config.buildNetworkSuite(this.config);
-    const connectivitySuite = Config.buildConnectivitySuite(this.config);
-    const throughputSuite = Config.buildThroughputSuite(this.config);
+    if (!filter.includes(this.SUITES.MICROPHONE)) {
+      const micSuite = Config.buildMicroSuite(this.config, filter);
+      this.suites.push(micSuite);
+    }
 
-    this.suites.push(micSuite);
-    this.suites.push(cameraSuite);
-    this.suites.push(networkSuite);
-    this.suites.push(connectivitySuite);
-    this.suites.push(throughputSuite);
+    if (!filter.includes(this.SUITES.CAMERA)) {
+      const cameraSuite = Config.buildCameraSuite(this.config, filter);
+      this.suites.push(cameraSuite);
+    }
+
+    if (!filter.includes(this.SUITES.NETWORK)) {
+      const networkSuite = Config.buildNetworkSuite(this.config, filter);
+      this.suites.push(networkSuite);
+    }
+
+    if (!filter.includes(this.SUITES.CONNECTIVITY)) {
+      const connectivitySuite = Config.buildConnectivitySuite(this.config, filter);
+      this.suites.push(connectivitySuite);
+    }
+
+    if (!filter.includes(this.SUITES.THROUGHPUT)) {
+      const throughputSuite = Config.buildThroughputSuite(this.config, filter);
+      this.suites.push(throughputSuite);
+    }
   }
 
   getSuites() {
@@ -50,5 +63,7 @@ class TestRTC {
   }
 }
 
+TestRTC.SUITES = Config.SUITES;
+TestRTC.TESTS = Config.TESTS;
 window.TestRTC = TestRTC;
 export default TestRTC;
