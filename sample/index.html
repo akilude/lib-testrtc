@@ -23,6 +23,7 @@
       else console.log(`[${suite}-${test}] ${message}`)
     });
 
+    testRTC.onGlobalProgress((finished, remaining) => { console.log(`[TestRTC update] ${finished} finished, ${remaining} remaining`)});
     testRTC.onTestProgress((suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)});
     testRTC.onTestResult((suite, test, status) => { console.log(`[${suite}-${test}: RESULT] ${status}`)});
     testRTC.onStopped(() => { console.log("Tests stopped") });

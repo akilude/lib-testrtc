@@ -5,11 +5,12 @@ function runAllSequentially(tasks, callbacks, shouldStop) {
   var runNextAsync = setTimeout.bind(null, runNext);
   runNextAsync();
   function runNext() {
+    current++;
+    callbacks.onGlobalProgress(current, tasks.length - current);
     if (shouldStop()) {
       callbacks.onStopped();
       return;
     }
-    current++;
     if (current === tasks.length) {
       callbacks.onComplete();
       return;
@@ -26,6 +27,7 @@ class TestRTC {
     this.config = config;
     this.callbacks = {
       onTestProgress: () => {},
+      onGlobalProgress: () => {},
       onTestResult: () => {},
       onTestReport: () => {},
       onStopped: () => {},
@@ -70,6 +72,10 @@ class TestRTC {
 
   onTestProgress(callback = () => {}) {
     this.callbacks.onTestProgress = callback;
+  }
+
+  onGlobalProgress(callback = () => {}) {
+    this.callbacks.onGlobalProgress = callback;
   }
 
   onTestResult(callback = () => {}) {
