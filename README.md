@@ -18,11 +18,7 @@ Import [the script](dist/testrtc-min.js) into your page and use the global objec
       strunURI: 'YOUR_STUN_URI',
     });
 
-    testRTC.start(
-      onTestProgress = (suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)},
-      onTestResult = (suite, test, status) => { console.log(`[${suite}-${test}] RESULT: ${status}`)},
-      onComplete = () => { console.log("Tests finished")}
-    );
+    testRTC.start();
 </script>
 ```
 
@@ -37,12 +33,43 @@ const testRTC = new TestRTC({
   strunURI: 'YOUR_STUN_URI',
 });
 
-testRTC.start(
-  onTestProgress = (suite, test, progress) => { console.log(`[${suite}-${test}] progress: ${progress}`)},
-  onTestResult = (suite, test, status) => { console.log(`[${suite}-${test}] RESULT: ${status}`)},
-  onComplete = () => { console.log("Tests finished")}
-);
+testRTC.start();
 ```
+
+### Callbacks ###
+You can suscribe to different callbacks to get the tests reports:
+
+```javascript
+// Test Progress 
+testRTC.onTestProgress((suiteName, testName, progress) => {})
+// Global Progress 
+testRTC.onGlobalProgress((finishedCount, remainingCount) => {})
+// Result 
+testRTC.onTestProgress((suiteName, testName, result) => {})
+// Logs 
+testRTC.onTestReport((suite, test, level, message) => {})
+// Tests completed 
+testRTC.onComplete(() => {})
+// Tests stopped 
+testRTC.onStopped(() => {})
+```
+
+### Stopping tests ###
+`testRTC.stop()` will prevent next tests to be executed.
+
+### Filtering tests ###
+You can prevent the execution of a suites or a test case by passing it through a filter array in parameter:
+
+```javascript
+const testRTC = new TestRTC({
+  turnUsername: 'USERNAME',
+  turnCredential: 'PASSWORD',
+  turnURI: 'YOUR_TURN_URL',
+  strunURI: 'YOUR_STUN_URI',
+}, filter = [TestRTC.SUITES.CAMERA, TestRTC.TESTS.IPV6ENABLED]);
+```
+
+The accepted values can be found [here](./src/config/index.js#L15)
 
 ## Tests descriptions ##
 * Microphone
