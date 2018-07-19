@@ -1,16 +1,16 @@
 import * as Config from './config';
 
-function runAllSequentially(tasks, progressCallback, resultCallback, doneCallback) {
+function runAllSequentially(tasks, callbacks) {
   var current = -1;
   var runNextAsync = setTimeout.bind(null, runNext);
   runNextAsync();
   function runNext() {
     current++;
     if (current === tasks.length) {
-      doneCallback();
+      callbacks.onComplete();
       return;
     }
-    tasks[current].run(progressCallback, resultCallback, runNextAsync);
+    tasks[current].run(callbacks, runNextAsync);
   }
 }
 
@@ -20,6 +20,12 @@ class TestRTC {
     this.SUITES = Config.SUITES;
     this.TESTS = Config.TESTS;
     this.config = config;
+    this.callbacks = {
+      onTestProgress: () => {},
+      onTestResult: () => {},
+      onTestReport: () => {},
+      onComplete: () => {},
+    };
 
     this.suites = [];
 
@@ -57,10 +63,31 @@ class TestRTC {
     return this.suites.reduce((all, suite) => all.concat(suite.getTests()), []);
   }
 
-  start(onTestProgress = () => {}, onTestResult = () => {}, onComplete = () => {}) {
-    const allTests = this.getTests();
-    runAllSequentially(allTests, onTestProgress, onTestResult, onComplete);
+  onTestProgress(callback = () => {}) {
+    this.callbacks.onTestProgress = callback;
   }
+
+  onTestResult(callback = () => {}) {
+    this.callbacks.onTestResult = callback;
+  }
+
+  onTestReport(callback = () => {}) {
+    this.callbacks.onTestReport = callback;
+  }
+
+  onComplete(callback = () => {}) {
+    this.callbacks.onComplete = callback;
+  }
+
+  start() {
+    const allTests = this.getTests();
+    runAllSequentially(allTests, this.callbacks);
+  }
+
+  stop() {
+
+  }
+
 }
 
 TestRTC.SUITES = Config.SUITES;

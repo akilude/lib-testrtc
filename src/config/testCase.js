@@ -10,39 +10,38 @@ class TestCase {
 
   setProgress(value) {
     this.progress = value;
-    this.updateCallback(this.suite.name, this.name, value);
+    this.callbacks.onTestProgress(this.suite.name, this.name, value);
   }
 
-  run(updateCallback, resultCallback, doneCallback) {
+  run(callbacks, doneCallback) {
     this.fn(this);
-    this.updateCallback = updateCallback;
-    this.resultCallback = resultCallback;
+    this.callbacks = callbacks;
     this.doneCallback = doneCallback;
     this.setProgress(0);
   }
 
   reportInfo(m) {
-    console.info(`[${this.suite.name} - ${this.name}] ${m}`);
+    this.callbacks.onTestReport(this.suite.name, this.name, 'info', m);
   }
   reportSuccess(m) {
-    console.info(`[${this.suite.name} - ${this.name}] ${m}`);
+    this.callbacks.onTestReport(this.suite.name, this.name, 'success', m);
     this.status = 'success';
   }
   reportError(m) {
-    console.error(`[${this.suite.name} - ${this.name}] ${m}`);
+    this.callbacks.onTestReport(this.suite.name, this.name, 'error', m);
     this.status = 'error';
   }
   reportWarning(m) {
-    console.warn(`[${this.suite.name} - ${this.name}] ${m}`);
+    this.callbacks.onTestReport(this.suite.name, this.name, 'warning', m);
     this.status = 'warning';
   }
   reportFatal(m) {
-    console.error(`[${this.suite.name} - ${this.name}] ${m}`);
+    this.callbacks.onTestReport(this.suite.name, this.name, 'error', m);
     this.status = 'error';
   }
   done() {
-    if (this.progress !== 100) this.setProgress(100);
-    this.resultCallback(this.suite.name, this.name, this.status);
+    if (this.progress < 100) this.setProgress(100);
+    this.callbacks.onTestResult(this.suite.name, this.name, this.status);
     this.doneCallback();
   }
 
