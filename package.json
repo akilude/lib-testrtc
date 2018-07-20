@@ -1,19 +1,14 @@
 {
   "name": "lib-testrtc",
-  "description": "Collection of tests and tools to help diagnose WebRTC systems.",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/webrtc/testrtc"
-  },
+  "version": "1.0.0",
+  "description": "TestRTC turned into a library: Collection of tests and tools to help diagnose WebRTC systems.",
+  "private": false,
+  "main": "dist/testrtc-min.js",
   "license": "BSD-3-Clause",
   "authors": [
-    "Olivier Gonthier",
+    "Olivier Gonthier <o.gonthier@gmail.com>",
     "The WebRTC project authors (http://www.webrtc.org/)"
   ],
-  "scripts": {
-    "test": "grunt && grunt build && start-tests"
-  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
