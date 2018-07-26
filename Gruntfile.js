@@ -28,8 +28,11 @@ module.exports = function(grunt) {
     browserify: {
       dist: {
         options: {
-          transform: [['babelify', { 'presets': ['babel-preset-env'] }]],
-          browserifyOptions: { debug: true }
+          transform: [['babelify', {
+            presets: ['env'],
+            sourceMaps: false,
+          }]],
+          browserifyOptions: { debug: false }
         },
         files: {
           'dist/testrtc.js': ['src/**/*.js']
