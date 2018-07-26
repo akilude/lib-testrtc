@@ -6,6 +6,7 @@ class TestCase {
     this.fn = fn;
     this.progress = 0;
     this.status = 'waiting';
+    this.logs = [];
   }
 
   setProgress(value) {
@@ -13,30 +14,44 @@ class TestCase {
     this.callbacks.onTestProgress(this.suite.name, this.name, value);
   }
 
+  getName() {
+    return this.name;
+  }
+  getLogs() {
+    return this.logs;
+  }
+
   run(callbacks, doneCallback) {
-    this.fn(this);
+    this.logs = [];
+    this.status = 'waiting';
     this.callbacks = callbacks;
     this.doneCallback = doneCallback;
     this.setProgress(0);
+    this.fn(this);
   }
 
   reportInfo(m) {
     this.callbacks.onTestReport(this.suite.name, this.name, 'info', m);
+    this.logs.push({ type: 'info', message: m });
   }
   reportSuccess(m) {
     this.callbacks.onTestReport(this.suite.name, this.name, 'success', m);
+    this.logs.push({ type: 'success', message: m });
     this.status = 'success';
   }
   reportError(m) {
     this.callbacks.onTestReport(this.suite.name, this.name, 'error', m);
+    this.logs.push({ type: 'error', message: m });
     this.status = 'error';
   }
   reportWarning(m) {
     this.callbacks.onTestReport(this.suite.name, this.name, 'warning', m);
+    this.logs.push({ type: 'warning', message: m });
     this.status = 'warning';
   }
   reportFatal(m) {
     this.callbacks.onTestReport(this.suite.name, this.name, 'error', m);
+    this.logs.push({ type: 'error', message: m });
     this.status = 'error';
   }
   done() {

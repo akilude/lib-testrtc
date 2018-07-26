@@ -5,6 +5,10 @@ class Suite {
     this.tests = [];
   }
 
+  getName() {
+    return this.name;
+  }
+
   getTests() {
     return this.tests;
   }
