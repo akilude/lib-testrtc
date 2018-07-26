@@ -60,8 +60,6 @@ CamResolutionsTest.prototype = {
             this.test.reportInfo(resolution[0] + 'x' + resolution[1] +
             ' not supported');
           } else {
-            console.error(error);
-            console.dir(constraints);
             this.test.reportError('getUserMedia failed with error: ' +
                 error.name);
           }
@@ -74,6 +72,7 @@ CamResolutionsTest.prototype = {
       this.test.done();
       return;
     }
+    this.test.setProgress(this.currentResolution / this.resolutions.length * 100);
     this.startGetUserMedia(this.resolutions[this.currentResolution++]);
   },
 
