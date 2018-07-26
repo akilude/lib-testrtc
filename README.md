@@ -22,20 +22,6 @@ Import [the script](dist/testrtc-min.js) into your page and use the global objec
 </script>
 ```
 
-Or, import it with the module syntax
-```javascript
-import TestRTC from './testrtc-min.js';
-
-const testRTC = new TestRTC({
-  turnUsername: 'USERNAME',
-  turnCredential: 'PASSWORD',
-  turnURI: 'YOUR_TURN_URL',
-  strunURI: 'YOUR_STUN_URI',
-});
-
-testRTC.start();
-```
-
 ### Callbacks ###
 You can suscribe to different callbacks to get the tests reports:
 
