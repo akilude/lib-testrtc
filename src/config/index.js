@@ -51,7 +51,7 @@ export function buildMicroSuite(config, filter) {
   return micSuite;
 }
 
-export function buildCameraSuite(config) {
+export function buildCameraSuite(config, filter) {
   const cameraSuite = new Suite(SUITES.CAMERA, config);
 
   if (!filter.includes(TESTS.CHECKRESOLUTION240)) {
@@ -90,7 +90,7 @@ export function buildCameraSuite(config) {
   return cameraSuite;
 }
 
-export function buildNetworkSuite(config) {
+export function buildNetworkSuite(config, filter) {
   const networkSuite = new Suite(SUITES.NETWORK, config);
 
   if (!filter.includes(TESTS.UDPENABLED)) {
@@ -124,7 +124,7 @@ export function buildNetworkSuite(config) {
   return networkSuite;
 }
 
-export function buildConnectivitySuite(config) {
+export function buildConnectivitySuite(config, filter) {
   const connectivitySuite = new Suite(SUITES.CONNECTIVITY, config);
 
   if (!filter.includes(TESTS.RELAYCONNECTIVITY)) {
@@ -160,7 +160,7 @@ export function buildConnectivitySuite(config) {
   return connectivitySuite;
 }
 
-export function buildThroughputSuite(config) {
+export function buildThroughputSuite(config, filter) {
   const throughputSuite = new Suite(SUITES.THROUGHPUT, config);
 
   if (!filter.includes(TESTS.DATATHROUGHPUT)) {
