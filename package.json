@@ -1,6 +1,6 @@
 {
   "name": "lib-testrtc",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "TestRTC turned into a library: Collection of tests and tools to help diagnose WebRTC systems.",
   "private": false,
   "main": "dist/testrtc-min.js",
