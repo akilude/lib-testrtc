@@ -5842,6 +5842,12 @@ var _config = require('./config');
 
 var Config = _interopRequireWildcard(_config);
 
+var _webrtcAdapter = require('webrtc-adapter');
+
+var _webrtcAdapter2 = _interopRequireDefault(_webrtcAdapter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5987,11 +5993,12 @@ var TestRTC = function () {
   return TestRTC;
 }();
 
+TestRTC.ADAPTER = _webrtcAdapter2.default;
 TestRTC.SUITES = Config.SUITES;
 TestRTC.TESTS = Config.TESTS;
 window.TestRTC = TestRTC;
 exports.default = TestRTC;
-},{"./config":15}],19:[function(require,module,exports){
+},{"./config":15,"webrtc-adapter":3}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

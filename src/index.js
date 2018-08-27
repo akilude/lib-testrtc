@@ -1,4 +1,5 @@
 import * as Config from './config';
+import adapter from 'webrtc-adapter';
 
 function runAllSequentially(tasks, callbacks, shouldStop) {
   var current = -1;
@@ -105,6 +106,7 @@ class TestRTC {
   }
 }
 
+TestRTC.ADAPTER = adapter;
 TestRTC.SUITES = Config.SUITES;
 TestRTC.TESTS = Config.TESTS;
 window.TestRTC = TestRTC;
