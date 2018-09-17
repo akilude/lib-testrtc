@@ -77,6 +77,7 @@ class TestRTC {
       onStopped: () => {},
       onComplete: () => {}
     };
+    this._initTests();
   }
 
   getSuites() {
@@ -112,7 +113,6 @@ class TestRTC {
   }
 
   start() {
-    this._initTests();
     const allTests = this.getTests();
     this.shouldStop = false;
     this._current = -1;
@@ -135,6 +135,7 @@ class TestRTC {
     this.shouldStop = true;
     this._current = -1;
     this.state = 'stopped';
+    this._initTests();
   }
 }
 
