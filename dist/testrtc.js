@@ -5852,8 +5852,17 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function runAllSequentially(tasks, callbacks, shouldStop) {
-  var current = -1;
+function runAllSequentially() {
+  var tasks = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.getTests();
+
+  var _this = this;
+
+  var callbacks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.callbacks;
+  var shouldStop = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {
+    return _this.shouldStop;
+  };
+
+  var current = this.current || -1;
   var runNextAsync = setTimeout.bind(null, runNext);
   runNextAsync();
   function runNext() {
@@ -5871,6 +5880,36 @@ function runAllSequentially(tasks, callbacks, shouldStop) {
   }
 }
 
+function initTests() {
+  this._current = -1;
+  this.suites = [];
+
+  if (!this.filter.includes(this.SUITES.MICROPHONE)) {
+    var micSuite = Config.buildMicroSuite(this.config, this.filter);
+    this.suites.push(micSuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.CAMERA)) {
+    var cameraSuite = Config.buildCameraSuite(this.config, this.filter);
+    this.suites.push(cameraSuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.NETWORK)) {
+    var networkSuite = Config.buildNetworkSuite(this.config, this.filter);
+    this.suites.push(networkSuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.CONNECTIVITY)) {
+    var connectivitySuite = Config.buildConnectivitySuite(this.config, this.filter);
+    this.suites.push(connectivitySuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.THROUGHPUT)) {
+    var throughputSuite = Config.buildThroughputSuite(this.config, this.filter);
+    this.suites.push(throughputSuite);
+  }
+}
+
 var TestRTC = function () {
   function TestRTC() {
     var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -5881,6 +5920,10 @@ var TestRTC = function () {
     this.SUITES = Config.SUITES;
     this.TESTS = Config.TESTS;
     this.config = config;
+    this.filter = filter;
+    this.state = 'stopped';
+    this._runAllSequentially = runAllSequentially;
+    this._initTests = initTests;
     this.callbacks = {
       onTestProgress: function onTestProgress() {},
       onGlobalProgress: function onGlobalProgress() {},
@@ -5889,33 +5932,6 @@ var TestRTC = function () {
       onStopped: function onStopped() {},
       onComplete: function onComplete() {}
     };
-
-    this.suites = [];
-
-    if (!filter.includes(this.SUITES.MICROPHONE)) {
-      var micSuite = Config.buildMicroSuite(this.config, filter);
-      this.suites.push(micSuite);
-    }
-
-    if (!filter.includes(this.SUITES.CAMERA)) {
-      var cameraSuite = Config.buildCameraSuite(this.config, filter);
-      this.suites.push(cameraSuite);
-    }
-
-    if (!filter.includes(this.SUITES.NETWORK)) {
-      var networkSuite = Config.buildNetworkSuite(this.config, filter);
-      this.suites.push(networkSuite);
-    }
-
-    if (!filter.includes(this.SUITES.CONNECTIVITY)) {
-      var connectivitySuite = Config.buildConnectivitySuite(this.config, filter);
-      this.suites.push(connectivitySuite);
-    }
-
-    if (!filter.includes(this.SUITES.THROUGHPUT)) {
-      var throughputSuite = Config.buildThroughputSuite(this.config, filter);
-      this.suites.push(throughputSuite);
-    }
   }
 
   _createClass(TestRTC, [{
@@ -5975,18 +5991,32 @@ var TestRTC = function () {
   }, {
     key: 'start',
     value: function start() {
-      var _this = this;
-
+      this._initTests();
       var allTests = this.getTests();
       this.shouldStop = false;
-      runAllSequentially(allTests, this.callbacks, function () {
-        return _this.shouldStop;
-      });
+      this._current = -1;
+      this.state = 'started';
+      this._runAllSequentially();
+    }
+  }, {
+    key: 'pause',
+    value: function pause() {
+      this.shouldStop = true;
+      this.state = 'paused';
+    }
+  }, {
+    key: 'resume',
+    value: function resume() {
+      this.shouldStop = false;
+      this.state = 'started';
+      this._runAllSequentially();
     }
   }, {
     key: 'stop',
     value: function stop() {
       this.shouldStop = true;
+      this._current = -1;
+      this.state = 'stopped';
     }
   }]);
 
