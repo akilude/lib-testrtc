@@ -5922,6 +5922,8 @@ var TestRTC = function () {
     this.config = config;
     this.filter = filter;
     this.state = 'stopped';
+    this._current = -1;
+    this.suites = [];
     this._runAllSequentially = runAllSequentially;
     this._initTests = initTests;
     this.callbacks = {
@@ -5932,6 +5934,7 @@ var TestRTC = function () {
       onStopped: function onStopped() {},
       onComplete: function onComplete() {}
     };
+    this._initTests();
   }
 
   _createClass(TestRTC, [{
@@ -5991,7 +5994,6 @@ var TestRTC = function () {
   }, {
     key: 'start',
     value: function start() {
-      this._initTests();
       var allTests = this.getTests();
       this.shouldStop = false;
       this._current = -1;
@@ -6017,6 +6019,7 @@ var TestRTC = function () {
       this.shouldStop = true;
       this._current = -1;
       this.state = 'stopped';
+      this._initTests();
     }
   }]);
 
