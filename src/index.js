@@ -24,13 +24,50 @@ function runAllSequentially(
   }
 }
 
+function initTests() {
+  this._current = -1;
+  this.suites = [];
+
+  if (!this.filter.includes(this.SUITES.MICROPHONE)) {
+    const micSuite = Config.buildMicroSuite(this.config, this.filter);
+    this.suites.push(micSuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.CAMERA)) {
+    const cameraSuite = Config.buildCameraSuite(this.config, this.filter);
+    this.suites.push(cameraSuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.NETWORK)) {
+    const networkSuite = Config.buildNetworkSuite(this.config, this.filter);
+    this.suites.push(networkSuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.CONNECTIVITY)) {
+    const connectivitySuite = Config.buildConnectivitySuite(
+      this.config,
+      this.filter
+    );
+    this.suites.push(connectivitySuite);
+  }
+
+  if (!this.filter.includes(this.SUITES.THROUGHPUT)) {
+    const throughputSuite = Config.buildThroughputSuite(
+      this.config,
+      this.filter
+    );
+    this.suites.push(throughputSuite);
+  }
+}
+
 class TestRTC {
   constructor(config = {}, filter = []) {
     this.SUITES = Config.SUITES;
     this.TESTS = Config.TESTS;
     this.config = config;
+    this.filter = filter;
     this._runAllSequentially = runAllSequentially;
-    this._current = -1;
+    this._initTests = initTests;
     this.callbacks = {
       onTestProgress: () => {},
       onGlobalProgress: () => {},
@@ -39,36 +76,6 @@ class TestRTC {
       onStopped: () => {},
       onComplete: () => {}
     };
-
-    this.suites = [];
-
-    if (!filter.includes(this.SUITES.MICROPHONE)) {
-      const micSuite = Config.buildMicroSuite(this.config, filter);
-      this.suites.push(micSuite);
-    }
-
-    if (!filter.includes(this.SUITES.CAMERA)) {
-      const cameraSuite = Config.buildCameraSuite(this.config, filter);
-      this.suites.push(cameraSuite);
-    }
-
-    if (!filter.includes(this.SUITES.NETWORK)) {
-      const networkSuite = Config.buildNetworkSuite(this.config, filter);
-      this.suites.push(networkSuite);
-    }
-
-    if (!filter.includes(this.SUITES.CONNECTIVITY)) {
-      const connectivitySuite = Config.buildConnectivitySuite(
-        this.config,
-        filter
-      );
-      this.suites.push(connectivitySuite);
-    }
-
-    if (!filter.includes(this.SUITES.THROUGHPUT)) {
-      const throughputSuite = Config.buildThroughputSuite(this.config, filter);
-      this.suites.push(throughputSuite);
-    }
   }
 
   getSuites() {
@@ -104,6 +111,7 @@ class TestRTC {
   }
 
   start() {
+    this._initTests();
     const allTests = this.getTests();
     this.shouldStop = false;
     this._current = -1;
