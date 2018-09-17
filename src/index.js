@@ -67,6 +67,8 @@ class TestRTC {
     this.config = config;
     this.filter = filter;
     this.state = 'stopped';
+    this._current = -1;
+    this.suites = [];
     this._runAllSequentially = runAllSequentially;
     this._initTests = initTests;
     this.callbacks = {
