@@ -8,7 +8,11 @@ Turns [TestRTC](https://github.com/webrtc/testrtc) into a library to make tests 
 
 ## Usage
 
-Import [the script](dist/testrtc-min.js) into your page and use the global object `TestRTC`.
+Install with npm / yarn
+`npm install lib-testrtc`
+`yarn add lib-testrtc`
+
+Or import [the script](dist/testrtc-min.js) into your page and use the global object `TestRTC`.
 
 ```html
 <script type="text/javascript" src="testrtc-min.js"></script>
