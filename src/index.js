@@ -66,6 +66,7 @@ class TestRTC {
     this.TESTS = Config.TESTS;
     this.config = config;
     this.filter = filter;
+    this.state = 'stopped';
     this._runAllSequentially = runAllSequentially;
     this._initTests = initTests;
     this.callbacks = {
@@ -115,21 +116,25 @@ class TestRTC {
     const allTests = this.getTests();
     this.shouldStop = false;
     this._current = -1;
+    this.state = 'started';
     this._runAllSequentially();
   }
 
   pause() {
     this.shouldStop = true;
+    this.state = 'paused';
   }
 
   resume() {
     this.shouldStop = false;
+    this.state = 'started';
     this._runAllSequentially();
   }
 
   stop() {
     this.shouldStop = true;
     this._current = -1;
+    this.state = 'stopped';
   }
 }
 
