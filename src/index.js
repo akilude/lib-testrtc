@@ -1,8 +1,12 @@
 import * as Config from './config';
 import adapter from 'webrtc-adapter';
 
-function runAllSequentially(tasks, callbacks, shouldStop) {
-  var current = -1;
+function runAllSequentially(
+  tasks = this.getTests(),
+  callbacks = this.callbacks,
+  shouldStop = () => this.shouldStop
+) {
+  var current = this.current || -1;
   var runNextAsync = setTimeout.bind(null, runNext);
   runNextAsync();
   function runNext() {
@@ -21,18 +25,19 @@ function runAllSequentially(tasks, callbacks, shouldStop) {
 }
 
 class TestRTC {
-
   constructor(config = {}, filter = []) {
     this.SUITES = Config.SUITES;
     this.TESTS = Config.TESTS;
     this.config = config;
+    this._runAllSequentially = runAllSequentially;
+    this._current = -1;
     this.callbacks = {
       onTestProgress: () => {},
       onGlobalProgress: () => {},
       onTestResult: () => {},
       onTestReport: () => {},
       onStopped: () => {},
-      onComplete: () => {},
+      onComplete: () => {}
     };
 
     this.suites = [];
@@ -53,7 +58,10 @@ class TestRTC {
     }
 
     if (!filter.includes(this.SUITES.CONNECTIVITY)) {
-      const connectivitySuite = Config.buildConnectivitySuite(this.config, filter);
+      const connectivitySuite = Config.buildConnectivitySuite(
+        this.config,
+        filter
+      );
       this.suites.push(connectivitySuite);
     }
 
@@ -98,11 +106,22 @@ class TestRTC {
   start() {
     const allTests = this.getTests();
     this.shouldStop = false;
-    runAllSequentially(allTests, this.callbacks, () => { return this.shouldStop });
+    this._current = -1;
+    this._runAllSequentially();
+  }
+
+  pause() {
+    this.shouldStop = true;
+  }
+
+  resume() {
+    this.shouldStop = false;
+    this._runAllSequentially();
   }
 
   stop() {
     this.shouldStop = true;
+    this._current = -1;
   }
 }
 
