@@ -7,12 +7,12 @@ function runAllSequentially(
   shouldStop = () => this.shouldStop
 ) {
   const runNext = () => {
-    this._current += 1;
-    callbacks.onGlobalProgress(this._current, tasks.length - this._current);
     if (shouldStop()) {
       callbacks.onStopped();
       return;
     }
+    this._current += 1;
+    callbacks.onGlobalProgress(this._current, tasks.length - this._current);
     if (this._current === tasks.length) {
       callbacks.onComplete();
       return;
