@@ -5862,22 +5862,22 @@ function runAllSequentially() {
     return _this.shouldStop;
   };
 
-  var current = this.current || -1;
-  var runNextAsync = setTimeout.bind(null, runNext);
-  runNextAsync();
-  function runNext() {
-    current++;
-    callbacks.onGlobalProgress(current, tasks.length - current);
+  var runNext = function runNext() {
+    _this._current += 1;
+    callbacks.onGlobalProgress(_this._current, tasks.length - _this._current);
     if (shouldStop()) {
       callbacks.onStopped();
       return;
     }
-    if (current === tasks.length) {
+    if (_this._current === tasks.length) {
       callbacks.onComplete();
       return;
     }
-    tasks[current].run(callbacks, runNextAsync);
-  }
+    tasks[_this._current].run(callbacks, runNextAsync);
+  };
+
+  var runNextAsync = setTimeout.bind(null, runNext);
+  runNextAsync();
 }
 
 function initTests() {
