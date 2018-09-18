@@ -6,22 +6,22 @@ function runAllSequentially(
   callbacks = this.callbacks,
   shouldStop = () => this.shouldStop
 ) {
-  var current = this.current || -1;
-  var runNextAsync = setTimeout.bind(null, runNext);
-  runNextAsync();
-  function runNext() {
-    current++;
-    callbacks.onGlobalProgress(current, tasks.length - current);
+  const runNext = () => {
+    this._current += 1;
+    callbacks.onGlobalProgress(this._current, tasks.length - this._current);
     if (shouldStop()) {
       callbacks.onStopped();
       return;
     }
-    if (current === tasks.length) {
+    if (this._current === tasks.length) {
       callbacks.onComplete();
       return;
     }
-    tasks[current].run(callbacks, runNextAsync);
-  }
+    tasks[this._current].run(callbacks, runNextAsync);
+  };
+
+  const runNextAsync = setTimeout.bind(null, runNext);
+  runNextAsync();
 }
 
 function initTests() {
