@@ -5863,12 +5863,12 @@ function runAllSequentially() {
   };
 
   var runNext = function runNext() {
-    _this._current += 1;
-    callbacks.onGlobalProgress(_this._current, tasks.length - _this._current);
     if (shouldStop()) {
       callbacks.onStopped();
       return;
     }
+    _this._current += 1;
+    callbacks.onGlobalProgress(_this._current, tasks.length - _this._current);
     if (_this._current === tasks.length) {
       callbacks.onComplete();
       return;
