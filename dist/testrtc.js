@@ -5864,12 +5864,14 @@ function runAllSequentially() {
 
   var runNext = function runNext() {
     if (shouldStop()) {
+      _this.shouldStop = false;
       callbacks.onStopped();
       return;
     }
     _this._current += 1;
     callbacks.onGlobalProgress(_this._current, tasks.length - _this._current);
     if (_this._current === tasks.length) {
+      _this.state = 'completed';
       callbacks.onComplete();
       return;
     }
@@ -5989,7 +5991,6 @@ var TestRTC = function () {
     value: function onComplete() {
       var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
 
-      this.state = 'completed';
       this.callbacks.onComplete = callback;
     }
   }, {
