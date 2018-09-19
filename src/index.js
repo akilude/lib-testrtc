@@ -8,6 +8,7 @@ function runAllSequentially(
 ) {
   const runNext = () => {
     if (shouldStop()) {
+      this.shouldStop = false;
       callbacks.onStopped();
       return;
     }
