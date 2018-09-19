@@ -14,6 +14,7 @@ function runAllSequentially(
     this._current += 1;
     callbacks.onGlobalProgress(this._current, tasks.length - this._current);
     if (this._current === tasks.length) {
+      this.state = 'completed';
       callbacks.onComplete();
       return;
     }
@@ -111,7 +112,6 @@ class TestRTC {
   }
 
   onComplete(callback = () => {}) {
-    this.state = 'completed';
     this.callbacks.onComplete = callback;
   }
 
