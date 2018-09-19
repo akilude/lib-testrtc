@@ -5989,6 +5989,7 @@ var TestRTC = function () {
     value: function onComplete() {
       var callback = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
 
+      this.state = 'completed';
       this.callbacks.onComplete = callback;
     }
   }, {
