@@ -111,6 +111,7 @@ class TestRTC {
   }
 
   onComplete(callback = () => {}) {
+    this.state = 'completed';
     this.callbacks.onComplete = callback;
   }
 
