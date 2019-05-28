@@ -7,6 +7,7 @@ class TestCase {
     this.progress = 0;
     this.status = 'waiting';
     this.logs = [];
+    this.rawResults = {};
   }
 
   setProgress(value) {
@@ -19,6 +20,14 @@ class TestCase {
   }
   getLogs() {
     return this.logs;
+  }
+
+  getRawResults() {
+    return this.rawResults;
+  }
+
+  setRawResults(rawData) {
+    this.rawResults = rawData;
   }
 
   run(callbacks, doneCallback) {
