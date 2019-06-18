@@ -7622,7 +7622,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function VideoBandwidthTest(test) {
   this.test = test;
   this.maxVideoBitrateKbps = 2000;
-  this.durationMs = 5000;
+  this.durationMs = 10000;
   this.statStepMs = 100;
   this.bweStats = new _stats2.default(0.75 * this.maxVideoBitrateKbps * 1000);
   this.rttStats = new _stats2.default();
