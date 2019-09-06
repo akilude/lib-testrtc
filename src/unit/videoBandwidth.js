@@ -174,6 +174,29 @@ VideoBandwidthTest.prototype = {
             ' ms');
     this.test.reportInfo('RTT max: ' + this.rttStats.getMax() + ' ms');
     this.test.reportInfo('Packets lost: ' + this.packetsLost);
+    this.test.setRawResults({
+        bwestats: this.bweStats,
+        bytesSent: this.bytesSent,
+        constraints: this.constraints,
+        call: this.call,
+        durationMs: this.durationMs,
+        framesDecoded: this.framesDecoded,
+        framesEncoded: this.framesEncoded,
+        framesSent: this.framesSent,
+        localStream: this.localStream,
+        maxVideoBitrateKbps: this.maxVideoBitrateKbps,
+        nackCount: this.nackCount,
+        packetsLost: this.packetsLost,
+        packetsReceived: this.packetsReceived,
+        packetsSent: this.packetsSent,
+        pliCount: this.pliCount,
+        qpSum: this.qpSum,
+        rttStats: this.rttStats,
+        startTime: this.startTime,
+        statStepMs: this.statStepMs,
+        test: this.test,
+        videoStats: this.videoStats
+    });
     this.test.done();
   }
 };
