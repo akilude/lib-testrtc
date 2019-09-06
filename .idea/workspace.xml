@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d70acd73-d090-478f-9cd4-9f98fa41c27f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/unit/videoBandwidth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/unit/videoBandwidth.js" afterDir="false" />
-    </list>
+    <list default="true" id="d70acd73-d090-478f-9cd4-9f98fa41c27f" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -227,16 +225,15 @@
       <updated>1559051145859</updated>
       <workItem from="1559051147105" duration="1810000" />
       <workItem from="1559122352049" duration="14335000" />
-      <workItem from="1567778315636" duration="1675000" />
+      <workItem from="1567778315636" duration="1917000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22298000" />
+    <option name="totallyTimeSpent" value="22540000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Grunt " order="0" side_tool="true" />
       <window_info id="Favorites" order="1" side_tool="true" />
