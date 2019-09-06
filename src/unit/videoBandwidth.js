@@ -6,7 +6,7 @@ import Call from '../util/call.js';
 function VideoBandwidthTest(test) {
   this.test = test;
   this.maxVideoBitrateKbps = 2000;
-  this.durationMs = 40000;
+  this.durationMs = 10000;
   this.statStepMs = 100;
   this.bweStats = new StatisticsAggregate(0.75 * this.maxVideoBitrateKbps *
       1000);

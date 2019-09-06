@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d70acd73-d090-478f-9cd4-9f98fa41c27f" name="Default Changelist" comment="" />
+    <list default="true" id="d70acd73-d090-478f-9cd4-9f98fa41c27f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/unit/videoBandwidth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/unit/videoBandwidth.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -24,7 +26,7 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="eslintrc" value="1" />
-          <entry key="js" value="6" />
+          <entry key="js" value="7" />
           <entry key="json" value="2" />
           <entry key="lock" value="1" />
           <entry key="md" value="2" />
@@ -34,39 +36,48 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="3" />
-          <entry key="JavaScript" value="6" />
+          <entry key="JavaScript" value="7" />
           <entry key="PLAIN_TEXT" value="3" />
           <entry key="yarn.lock" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="526" />
+          <entry key="js" value="531" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="526" />
+          <entry key="JavaScript" value="531" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/config/testCase.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="459">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/unit/dataBandwidth.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1318">
+              <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/unit/videoBandwidth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3009">
-              <caret line="179" column="8" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="8" />
+            <state relative-caret-position="119">
+              <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -85,6 +96,7 @@
       <find>node</find>
       <find>getname</find>
       <find>Videobandwidthtest</find>
+      <find>10000</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -93,8 +105,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/unit/videoBandwidth.js" />
         <option value="$PROJECT_DIR$/src/config/testCase.js" />
+        <option value="$PROJECT_DIR$/src/unit/videoBandwidth.js" />
       </list>
     </option>
   </component>
@@ -215,15 +227,16 @@
       <updated>1559051145859</updated>
       <workItem from="1559051147105" duration="1810000" />
       <workItem from="1559122352049" duration="14335000" />
-      <workItem from="1567778315636" duration="478000" />
+      <workItem from="1567778315636" duration="1675000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21101000" />
+    <option name="totallyTimeSpent" value="22298000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Grunt " order="0" side_tool="true" />
       <window_info id="Favorites" order="1" side_tool="true" />
@@ -291,20 +304,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/config/testCase.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/unit/videoBandwidth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3009">
-          <caret line="179" column="8" selection-start-line="179" selection-start-column="8" selection-end-line="179" selection-end-column="8" />
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/unit/dataBandwidth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1318">
+          <caret line="91" column="66" selection-start-line="91" selection-start-column="66" selection-end-line="91" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/unit/videoBandwidth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
